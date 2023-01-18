@@ -6,6 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Lignecommand {
 
@@ -14,6 +16,7 @@ public class Lignecommand {
 	int qte;
 	double prix;
 	
+	@JsonIgnore
 	@ManyToOne
 	Command cmd;
 	@Transient

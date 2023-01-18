@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entities.Command;
+import com.example.demo.entities.Lignecommand;
 import com.example.demo.repos.ICommand;
 import com.example.demo.repos.ILingnecommand;
 @Service
@@ -43,6 +44,29 @@ public class CommandbusnissImpl implements Commandbusniss{
 		
 		Pageable pageable=PageRequest.of(page, size);
 		Page<Command> res = crepo.findAll(pageable);
+		return res;
+	}
+
+	@Override
+	public Lignecommand addlc(Lignecommand lg, long idcmd) {
+		
+		try {
+			Command c = crepo.findById(idcmd).orElseThrow(()->new Exception(""));
+			lg.setCmd(c);
+			lg=lrepo.save(lg);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return lg;
+	}
+
+	@Override
+	public List<Lignecommand> alllg(long idc) {
+		//crepo.findById(idc).get().getComposants();
+		List<Lignecommand> res = lrepo.findByCmdId(idc);
 		return res;
 	}
 
